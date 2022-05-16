@@ -1,0 +1,35 @@
+.back{
+    background-color: rgb(0, 18, 31);
+    
+}
+.pagar{
+    height: 400px;
+    width: 400px;
+    margin: 0px auto;
+    background-color: rgb(148, 210, 254);
+}
+
+.tabla { 
+    border: 1px solid black ;
+    border-collapse: separate;
+ }
+.th{
+    border: 1px solid black ;
+   text-align: center;
+   width: 100px;
+}
+.th1{
+    border: 2px solid black ;
+   text-align: right;
+   
+   width: 100px;
+}
+.th11{
+    border: 2px solid black ;
+   text-align: center;
+   width: 100px;
+}
+.th2{
+    border: 1px solid black ;
+   text-align: center;
+}
