@@ -6,7 +6,7 @@ from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.utils import serializer_helpers
 from music_pro.models import Categoria, Producto, Bodega, pedido
-from .serializers import  ProductoSerializador
+from .serializers import  ProductoSerializador, stockSerializador
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -35,7 +35,7 @@ def traerUnProducto(request,id):
         a = Producto.objects.get(idProd = id)
         
     request.method == 'GET'
-    serializer = ProductoSerializador(a)
+    serializer = stockSerializador(a)
     return Response(serializer.data)
 
 @api_view(['GET'])
