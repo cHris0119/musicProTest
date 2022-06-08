@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'MusicPro.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1522/xe',
+        'NAME': '127.0.0.1:1521/xe',
         'USER':'music_pro1',
         'PASSWORD':'123456',
         'TEST':{

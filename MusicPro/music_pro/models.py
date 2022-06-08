@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from tkinter import CASCADE
 from django.db import models
 
@@ -74,9 +75,8 @@ class Tienda (models.Model):
 class Producto (models.Model):
     idProd = models.AutoField (primary_key=True, verbose_name="identificador unico del producto")
     nombre = models.CharField(max_length=30, verbose_name="nombre del producto")
-    stock = models.IntegerField(verbose_name="cantidad del producto")
+    img = models.ImageField(upload_to="instru", null=True)
     precio = models.IntegerField(verbose_name="precio unitario del producti")
-    codigo = models.CharField(max_length=5, verbose_name="debe ser dos letras en mayuscula y tres numeros ej: LS123")
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE )
@@ -94,6 +94,7 @@ class CarritoPro (models.Model):
 
 class Bodega (models.Model):
     idBodega = models.AutoField(primary_key=True, verbose_name="identificador de la bodega")
+    stock = models.IntegerField(verbose_name="cantidad del producto", default=0)
     tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
 
