@@ -80,7 +80,6 @@ class Producto (models.Model):
     precio = models.IntegerField(verbose_name="precio unitario del producti")
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE )
 
     def __str__(self):
         return self.nombre
