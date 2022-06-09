@@ -18,7 +18,7 @@ from rest_framework.permissions import IsAuthenticated
 @api_view(['GET'])
 def traerTodosProductos (request):
     request.method == 'GET'
-    a = Producto.objects.filter(tienda = 2)
+    a = Producto.objects.all()
     serializer = ProductoSerializador(a, many = True)
     return Response(serializer.data)
        
@@ -26,13 +26,10 @@ def traerTodosProductos (request):
 @api_view(['GET'])
 def traerUnProducto(request,id):
     try: 
-        b = Bodega.objects.get(tienda = 2, producto = id)
+        a = Bodega.objects.get(tienda = 2, producto = id)
     except Bodega.DoesNotExist:
-        b = None
-    if b is None:
-        return Response(status= status.HTTP_404_NOT_FOUND)
-    else:
-        a = Producto.objects.get(idProd = id)
+       return Response(status= status.HTTP_404_NOT_FOUND)
+
         
     request.method == 'GET'
     serializer = stockSerializador(a)
@@ -40,7 +37,7 @@ def traerUnProducto(request,id):
 
 @api_view(['GET'])
 def traerUnaCategoria(request,idc):
-    a = Producto.objects.filter(categoria = idc, tienda=2)
+    a = Producto.objects.filter(categoria = idc)
     request.method == 'GET'
     serializer = ProductoSerializador(a, many = True) 
     return Response(serializer.data)
@@ -48,7 +45,7 @@ def traerUnaCategoria(request,idc):
 @api_view(['GET'])
 def traerUnaMarca(request,idm):
     try:
-        a = Producto.objects.filter(marca = idm, tienda =2)
+        a = Producto.objects.filter(marca = idm)
     except Producto.DoesNotExist:
         return Response(status= status.HTTP_404_NOT_FOUND)
     

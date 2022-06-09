@@ -1,14 +1,14 @@
 from django.db.models.base import Model
 from rest_framework import serializers
-from music_pro.models import Producto
+from music_pro.models import Bodega, Producto
 
 class ProductoSerializador (serializers.ModelSerializer):
     class Meta:
         model = Producto
-        fields = ['idProd', 'nombre', 'stock', 'precio', 'codigo', 'marca', 'categoria']
+        fields = ['idProd', 'nombre', 'precio', 'marca', 'categoria']
 class stockSerializador (serializers.ModelSerializer):
     class Meta:
-        model = Producto
+        model = Bodega
         fields = ['stock']
 
 
