@@ -28,6 +28,7 @@ class TipoUsuario (models.Model):
 class Cliente (models.Model):
     rutCli = models.CharField(primary_key=True, max_length=14, verbose_name="Run del usuario")
     nombre = models.CharField(max_length=20, verbose_name="nombre o nombres del usuario")
+    img = models.ImageField(upload_to="img_mp", null=True)
     apellido = models.CharField(max_length=20, verbose_name="apellido o apellidos del usuario")
     email = models.CharField(max_length=50, verbose_name="Email del usuario")
     contra = models.CharField(max_length=12, verbose_name="contraseña del usuario")
@@ -75,7 +76,7 @@ class Tienda (models.Model):
 class Producto (models.Model):
     idProd = models.AutoField (primary_key=True, verbose_name="identificador unico del producto")
     nombre = models.CharField(max_length=30, verbose_name="nombre del producto")
-    img = models.ImageField(upload_to="instru", null=True)
+    img = models.ImageField(upload_to="img_mp", null=True)
     precio = models.IntegerField(verbose_name="precio unitario del producti")
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
