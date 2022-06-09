@@ -17,10 +17,10 @@ from rest_framework.permissions import IsAuthenticated
 @csrf_exempt
 
 @api_view(['GET'])
-def Consulta (request, cod):
+def Consulta (request, id):
     request.method == 'GET'
-    a = Producto.objects.get( codigo = cod, tienda = 1)
-    serializer = ProductoSerializador(a)
+    a = Bodega.objects.get( producto = id, tienda= 1)
+    serializer = BodegaSerializador(a)
     return Response(serializer.data)
     
 

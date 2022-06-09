@@ -5,15 +5,15 @@ from music_pro.models import  Bodega, pedido, Producto
 class BodegaSerializador (serializers.ModelSerializer):
     class Meta:
         model = Bodega
-        fields = ['idBodega','tienda', 'producto']
+        fields = ['stock']
 
 class PedidoSerializador (serializers.ModelSerializer):
     class Meta:
         model = pedido
-        fields = ['idPedido','nomPedido', 'cantidad', 'codigoProducto', 'tienda']
+        fields = ['idPedido','nomPedido', 'cantidad', 'idProducto', 'tienda']
 
 class ProductoSerializador (serializers.ModelSerializer):
     class Meta:
         model = Producto
-        fields = ['idProd', 'nombre', 'stock', 'precio', 'codigo', 'marca', 'categoria']
+        fields = ['idProd', 'nombre', 'precio', 'marca', 'categoria']
 
