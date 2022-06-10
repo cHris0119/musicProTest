@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style type="text/css">
+        BODY {
+            font-family: verdana;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'music_pro/main.css' %}">
+</head>
+
+<body>
+    <div class="container-login">
+        <div class="login-left"></div>
+
+        <div class="login-right">
+            {% if messages %}
+            <div style="text-align: center;" class="alert alert-warning alert-dismissible fade show">
+                {% for x in messages %}
+                <h3>{{ x }}</h3><br>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="login-box">
+
+                <h1>Registrarse</h1>
+                <form class="form" action="{% url 'registrarUser' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form__section">
+                        <input class="form__input" type="number" id="rut" name="rut" placeholder="Ingrese su rut"
+                            min="100000000" max="999999999">
+                    </div>
+                    <div class="form__section">
+                        <input class="form__input" id="nombre" name="nombre" type="text"
+                            placeholder="Ingrese su nombre">
+                    </div>
+                    <div class="form__section">
+                        <input class="form__input" id="apellido" name="apellido" type="text"
+                            placeholder="Ingrese su apellido">
+                    </div>
+                    <div class="form__section">
+                        <input type="file" id="img_user" name="img_user" required
+                            placeholder="Ingrese su foto de perfil">
+                    </div>
+                    <div class="form__section">
+                        <input class="form__input" id="email" name="email" type="email"
+                            placeholder="Ingrese su nombre email">
+                    </div>
+                    <div class="form__section">
+                        <input class="form__input" id="contra" name="contra" type="password"
+                            placeholder="Ingrese su contraseña">
+                    </div>
+                    <div class="form__section">
+                        <input class="form__input" id="contra2" name="contra2" type="password"
+                            placeholder="Ingrese su contraseña nuevamente">
+                    </div>
+                    <div class="form__section">
+                        <input type="submit" class="form__input" value="Registrarse">
+                    </div>
+                    <div class="form__section">
+                        <button class="back" onclick="location.href='../'">ATRAS</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

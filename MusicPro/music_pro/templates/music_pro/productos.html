@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <style type="text/css">
+        BODY {
+            font-family: verdana;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'music_pro/main.css' %}">
+</head>
+<body>
+    <!--HEADER-->
+    <header>
+        <a href="{% url 'inicio' %}" class="logo">
+            <img src="{% static 'music_pro/img/musicprologo.png' %}">
+            <h2>MusicPro</h2>
+        </a>
+        <nav>
+           <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
+           <a href="{% url 'productos' %}" class="nav-link">Tienda</a> 
+           <a href="" class="nav-link">Cerrar sesion</a> 
+           <a href="{% url 'carrito' %}" class="nav-link"><img src="{% static 'music_pro/img/carrito.png' %}"></a>  
+        </nav>
+       
+    </header>
+   <!--FIN HEADER-->  
+    
+   <div class="container-prod">
+       <div>
+           <div class="encabezado-inicio">
+            <h2>Productos</h2>
+           </div>
+
+           <div class="flex-container">
+            <div class="flex-item">
+                <img class="flex-item__img" src="../assets/img/guitarra.png" alt="music" >
+                <h3> Guitarra Acustica </h3>
+                <h4>$5000</h4>
+                <button>Agregar al carrito</button>
+                
+            </div>
+            <div class="flex-item">
+                <img class="flex-item__img" src="../assets/img/bajo.png" alt="music" >
+                <h3> Bajo </h3>
+                <h4>$5000</h4>
+                <button>Agregar al carrito</button>
+            </div>
+            <div class="flex-item">
+                <img class="flex-item__img" src="../assets/img/piano.png" alt="music" >  
+                <h3 >Piano</h3>
+                <h4>$5000</h4>
+                <button>Agregar al carrito</button>
+            </div>
+            <div class="flex-item">
+                <img class="flex-item__img" src="../assets/img/piano.png" alt="music" >  
+                <h3 >Piano</h3>
+                <h4>$5000</h4>
+                <button>Agregar al carrito</button>
+            </div>
+            <div class="flex-item">
+                <img class="flex-item__img" src="../assets/img/piano.png" alt="music" >  
+                <h3 >Piano</h3>
+                <h4>$5000</h4>
+                <button>Agregar al carrito</button>
+            </div>
+        </div>
+       </div>
+
+   </div>
+   <footer class="footer">
+    <div>
+        <p>@LaCabraDoradaCompany</p>
+    </div>
+</footer>
+</body>
+</html>

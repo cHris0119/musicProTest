@@ -1,0 +1,304 @@
+body{
+    background-image: url(../../music_pro/img/img2.jpg);
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+.content{
+    background-color: #eeee;
+    margin: 20px 50px;
+    padding-top: 100px;
+    padding-bottom: 10px;
+    
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    min-height: 70px;
+    background-color: rgba(176, 21, 21, 0.938);
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+.logo img{
+    height: 50px;
+    margin-right: 10px;
+}
+
+
+
+nav{
+    display: flex;
+    align-items: center;
+}
+
+nav a{
+    font-weight: 600;
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+nav a:hover{
+    color: white;
+}
+nav a img{
+    height: 50px;
+    margin-right: 10px;
+}
+
+nav a img:hover{
+    height: 60px;
+    margin-right: 10px;
+}
+
+h1, h2{
+    text-align: center;
+}
+.encabezado-inicio{
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    max-width: 700px;
+    min-width: 100px;
+}
+
+.flex-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+
+.flex-item{
+    background-color: white;
+    min-width: 150px;
+    width: 300px;
+    margin: 20px;
+    text-align: center;
+    padding: 10px;
+}
+.flex-item__img{
+    max-width: 200px;
+}
+
+.footer{
+    background-color: #f2f2f2;
+    padding: 4rem 0;
+    text-align: center;
+    margin-top: 6rem;
+}
+
+/* Desde acá es css login y registro */
+    .container-login{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        
+        height: 100vh;
+    }
+    .login-left{
+        background-image: url(img/img4.jpg);
+        background-size: cover;
+    }
+    .login-right{
+        background-color: rgb(52, 51, 51);
+    }
+
+    .login-box{
+        text-align: center;
+        background-color: white;
+        padding: 10px;
+        margin: 20px;
+        margin-top: 20vh;
+    }
+
+    .form__input{
+        width: 50%;
+        padding: 8px;
+        margin: 5px 0;
+        border: none;
+        border-left: 4px solid rgba(0, 0, 0, 0.849);
+        background-color: transparent;
+        color: black;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+    .form__input-regi{
+        width: 50%;
+        padding: 8px;
+        margin: 5px 0;
+        border: none;
+        background-color: transparent;
+        color: black;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    .back{
+        width: 50%;
+        padding: 8px;
+        margin: 5px 0;
+        border: none;
+        background-color: rgb(255, 0, 0);
+        color: white;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    .back:focus{
+        background-color: black;
+    }
+
+
+    .form__input[type="submit"]{
+        background-color: rgba(0, 0, 0, 0.849);
+        color: white;
+    }
+    .form__input[type="submit"]:focus{
+        background-color: rgb(255, 0, 0);
+        color: white;
+    }
+
+    .form__input-regi[type="submit"]{
+        background-color: rgb(255, 0, 0);
+        color: white;
+    }
+
+    .form__input:focus{
+        border: none;
+        outline: none;
+        background-color: rgba(65, 56, 56, 0.933);
+        color: white;
+    }
+
+    .login-img{
+        width: 200px;
+    }
+
+    /* A partir de acá es carrito */
+
+    .container-cart{
+        display: grid;
+        grid-template-rows: 0.8fr 1fr;
+        height: 100vh;
+        background-color: #eee;
+        color: black;
+        width: 100%;
+        padding: 0;
+        
+        
+    }
+    .container-cart_main{
+        margin:auto;
+        width: 900px;
+        
+    }
+
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        
+    }
+    td, th{
+        
+        padding: 20px;
+    }
+
+    thead{
+        background-color: #633024;
+        border-bottom: solid 5px #361b0f;
+        color: white;
+    }
+
+    tr:nth-child(even){
+        background-color: #ddd;
+    }
+
+    .text-right{
+        text-align: right;
+    }
+    
+    .input-table{
+        padding: 5px;
+        width: 300px;
+    }
+
+    .eliminar{
+        padding: 10px;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        color: #000;
+    }
+    .eliminar:hover{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .eliminar:focus{
+        font-size: 15px;
+    }
+
+    .comprar{
+        text-align: right;
+    }
+    .comprar input{
+        padding: 10px;
+        margin-bottom: 20px;
+        width: 300px;
+        background-color: rgb(177, 7, 7);
+        color: white;
+    }
+    .comprar input:hover{
+        background-color: rgb(134, 8, 8);
+        color: white;
+    }
+    .imgcart{
+        background: no-repeat;
+        background-size: cover;
+        background-image: url(img/fondocart.jpg);
+        
+    }
+
+    .img-table{
+        max-width: 100px;
+    }
+
+    /* A partir de acá es la tienda */
+
+    .container-prod{
+        background-color: #eeee;
+    margin: 20px 50px;
+    padding-top: 100px;
+    padding-bottom: 10px;
+    }
+
+
+
+
+
+@media (max-width:700px){
+    header{
+        flex-direction: column;
+    }
+    nav{
+        padding: 10px 0px;
+    }
+}

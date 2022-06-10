@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{% static 'music_pro/main.css' %}">
+    <style type="text/css"> BODY{ font-family: verdana; } </style>
+</head>
+<body>
+
+    <!--HEADER-->
+    <header>
+        <a href="" class="logo">
+            <img src="{% static 'music_pro/img/musicprologo.png' %}">
+            <h2>MusicPro</h2>
+        </a>
+        <nav>
+           <a href="#" class="nav-link">Inicio</a>
+           <a href="{% url 'productos' %}" class="nav-link">Tienda</a> 
+           <a href="{% url 'log_out' %}" class="nav-link">Cerrar sesion</a> 
+           <a href="{% url 'carrito' %}" class="nav-link"><img src="{% static 'music_pro/img/carrito.png' %}"></a>  
+        </nav>
+       
+    </header>
+   <!--FIN HEADER-->  
+
+
+    <!--CONTENIDO-->
+    <div class="content">
+        
+
+        
+    <h1>Bienvenido a MusicPro</h1>
+    <div>
+        <div class="encabezado-inicio">
+            <h2>Productos más recientes</h2>
+        </div>
+        <div class="flex-container">
+            <div class="flex-item">
+                <img class="flex-item__img" src="{% static 'music_pro/img/guitarra.png' %}" alt="music" >
+                <h3> Guitarra Acustica </h3>
+                <p> Tiene cuerdas metálicas, por lo que el sonido que producen las cuerdas es más metálico, duro y brillante, que los de una guitarra normal, además, estas tienen una mayor tensión que las de nylon y se encuentran más unidas unas de las otras.
+                </p>
+            </div>
+            <div class="flex-item">
+                <img class="flex-item__img" src="{% static 'music_pro/img/bajo.png' %}" alt="music" >
+                <h3> Bajo </h3>
+                <p> El bajo eléctrico es un instrumento musical de la familia de los cordófonos, similar en apariencia y construcción a la guitarra eléctrica, pero con un cuerpo de mayores dimensiones, un mástil de mayor longitud y escala y, normalmente, cuatro cuerdas afinadas.
+                </p>
+            </div>
+            <div class="flex-item">
+                <img class="flex-item__img" src="{% static 'music_pro/img/piano.png' %}" alt="music" >  
+                <h3 >Piano</h3>
+                <p> Está compuesto por una caja de resonancia a la que se ha agregado un teclado mediante el cual se percuten las cuerdas de acero con martillos forrados de fieltro, produciendo el sonido, Las vibraciones se transmiten a través de los puentes a la tabla armónica.
+                </p>
+            </div>
+        </div>
+
+        <div class="encabezado-inicio">
+            <h2 class="text-center all-titles-pages">Comprar Productos</h2>
+        </div>
+        
+       
+    </div>
+    
+    
+    </div>
+   <!--FIN CONTENIDO-->
+   <footer class="footer">
+    <div>
+        <p>@LaCabraDoradaCompany</p>
+    </div>
+</footer>
+</body>
+</html>

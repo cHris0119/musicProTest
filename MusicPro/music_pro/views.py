@@ -1,5 +1,8 @@
 from array import typecodes
+import email
+from django.contrib import messages
 from urllib.request import Request
+from django.contrib.auth.models import User
 from django.test import TransactionTestCase
 from transbank.common.options import WebpayOptions
 from transbank.common.request_service import RequestService
@@ -18,9 +21,12 @@ from transbank.error.transaction_commit_error import TransactionCommitError
 from transbank.error.transaction_status_error import TransactionStatusError
 from transbank.error.transaction_refund_error import TransactionRefundError
 from transbank.error.transaction_capture_error import TransactionCaptureError
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth import login as login_process
 
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from .models import Cliente, TipoUsuario
 
 from music_pro.models import Carrito, CarritoPro
 #from transbank.common.options import WebpayOptions
@@ -30,9 +36,62 @@ from music_pro.models import Carrito, CarritoPro
 # Create your views here.
 
 
-def home(request):
+def inicio(request):
+    return render(request,'music_pro/inicio.html')
 
-    return render(request,'music_pro/home.html')
+def login(request):
+    return render(request,'music_pro/login.html')
+
+def registro(request):
+    return render(request,'music_pro/registro.html')
+
+def carrito(request):
+    return render(request,'music_pro/carrito.html')
+
+def productos(request):
+    return render(request,'music_pro/productos.html')
+
+def registrarUser(request):
+    rut = request.POST['rut']
+    nombre = request.POST['nombre']
+    apellido = request.POST['apellido']
+    img = request.FILES['img_user']
+    email = request.POST['email']
+    contra = request.POST['contra']
+    contra2 = request.POST['contra2']
+    tipoUsu = TipoUsuario.objects.get(nomTipoUs = 'Cliente')
+    clientes = Cliente.objects.all()
+    for i in clientes:
+        cli1 = i.email
+        if email == cli1:
+            messages.error(request,'El correo ya existe')
+            return redirect('registro')
+    if contra != contra2:
+        messages.error(request,'Las contraseñas deben ser iguales')
+        return redirect('registro')
+    else:
+        Cliente.objects.create(rutCli = rut, nombre = nombre, img = img, apellido = apellido, email = email, contra = contra, tipousuario = tipoUsu)
+        User.objects.create_user(username =  email, password = contra)
+        return redirect('login')
+
+
+def iniciar_sesion(request):
+    correo = request.POST['email']
+    contra = request.POST['contra']
+    user = authenticate(username = correo, password = contra)
+    if user is not None:
+        if user.is_active:
+            login_process(request, user)
+            return redirect('inicio')
+        else:
+            messages.error(request,'El usuario no esta activo')
+    else:
+        messages.error(request,'Correo o contraseña incorrectos')
+        return redirect('login')
+
+def log_out(request):
+    logout(request)
+    return redirect('login')
 
 def pagar(request):
     a = Carrito.objects.get(idCarrito = 1)

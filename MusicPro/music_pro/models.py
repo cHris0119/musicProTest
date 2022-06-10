@@ -102,7 +102,7 @@ class pedido (models.Model):
     idPedido = models.AutoField(primary_key=True, verbose_name="id del pedido realizado por la bodega a la empresa")
     nomPedido = models.CharField(max_length=20, verbose_name="nombre del producto pedido")
     cantidad = models.IntegerField(verbose_name="cantidad del producto solicitado")
-    idProducto = models.IntegerField(max_length=5, verbose_name="id del producto")
+    idProducto = models.IntegerField(verbose_name="id del producto")
     tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
 
     def __str__(self):
