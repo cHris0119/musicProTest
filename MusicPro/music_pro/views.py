@@ -1,9 +1,12 @@
 from array import typecodes
+from dataclasses import dataclass
 import email
+from urllib import response
 from django.contrib import messages
 from urllib.request import Request
 from django.contrib.auth.models import User
 from django.test import TransactionTestCase
+import requests
 from transbank.common.options import WebpayOptions
 from transbank.common.request_service import RequestService
 from transbank.common.api_constants import ApiConstants
@@ -23,6 +26,7 @@ from transbank.error.transaction_refund_error import TransactionRefundError
 from transbank.error.transaction_capture_error import TransactionCaptureError
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_process
+import urllib, json
 
 
 from django.shortcuts import redirect, render
@@ -67,6 +71,7 @@ def registrarUser(request):
             messages.error(request,'El correo ya existe')
             return redirect('registro')
     if contra != contra2:
+        
         messages.error(request,'Las contraseñas deben ser iguales')
         return redirect('registro')
     else:
@@ -126,4 +131,6 @@ def devueltapagar (request):
     number = response['installments_number']
     contexto = {"amoun": amount, "stado": status, "orde": orden, "fech": fecha, "type": typocode, "cod": codigo, "count": cuenta}
     return render(request, 'music_pro/devuelta.html', contexto)
+
+
     

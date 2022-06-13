@@ -13,4 +13,5 @@ urlpatterns = [
     path('registrarUser', registrarUser, name="registrarUser"),
     path('iniciar_sesion', iniciar_sesion, name="iniciar_sesion"),
     path('log_out', log_out, name="log_out"),
+    
     ]
