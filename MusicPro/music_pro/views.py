@@ -134,3 +134,10 @@ def devueltapagar (request):
 
 
     
+def consultadistribucion (request):
+
+    return render(request, 'music_pro/con_distribucion.html')
+
+def ver_eliminar_ped (request):
+
+    return render(request, 'music_pro/ver_eliminar_pedido.html')

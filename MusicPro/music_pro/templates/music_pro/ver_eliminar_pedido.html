@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver pedidos</title>
+    <link rel="stylesheet" href="{% static 'music_pro/main.css' %}">
+    <style type="text/css">
+        BODY {
+            font-family: verdana;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <a href="" class="logo">
+            <img src="{% static 'music_pro/img/musicprologo.png' %}">
+            <h2>MusicPro</h2>
+        </a>
+        <nav>
+            <a href="#" class="nav-link">PERFIL</a>
+        </nav>
+
+    </header>
+
+
+    <div class="content">
+        <h1>Pedidos</h1>
+        <div class="encabezado-inicio">
+            <h2></h2>
+        </div>
+        <div class="content1">
+            <table class="table table-hover">
+                <tr>
+                    <th>ID pedido</th>
+                    <th>ID producto</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>ID tienda </th>
+
+                    <th>Action</th>
+                </tr>
+                <tbody id="divBody"></tbody>
+
+
+            </table>
+        </div>
+        <div class="encabezado-inicio">
+            <h2></h2>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            BindStudents();
+        });
+        function BindStudents() {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "http://127.0.0.1:8000/api_BodegaDistribucion/Ver_Pedir", success: function (result) {
+
+                    var totalCount = result.length;
+                    var structureDiv = "";
+                    for (let i = 0; i < totalCount; i++) {
+                        structureDiv += "<tr>" +
+                            "     <td>" + result[i].idPedido + "</td>" +
+                            "      <td>" + result[i].idProducto + "</td>" +
+                            "             <td>" + result[i].nomPedido + "</td>" +
+                            "              <td>" + result[i].cantidad + "</td>" +
+                            "              <td>" + result[i].tienda + "</td>" +
+                            "              <td><button onclick='return confirm(\"¿Seguro que desea borrar este pedido?\",DeleteRow(" + result[i].idPedido + "))'> Eliminar </button></td>" +
+                            "           </tr>";
+                    }
+                    $("#divBody").html(structureDiv);
+
+                }
+            });
+
+        }
+        function DeleteRow(id) {
+            
+            $.ajax({
+                type: 'DELETE',
+                dataType: 'json',
+
+                url: "http://127.0.0.1:8000/api_BodegaDistribucion/eliminar_pedido/" + id + "",
+                error: function (xhr, status, error) {
+
+                    var err_msg = ''
+                    for (var prop in xhr.responseJSON) {
+                        err_msg += prop + ': ' + xhr.responseJSON[prop] + '\n';
+                    }
+
+                    alert(err_msg);
+                },
+                success: function (result) {
+              
+                    BindStudents();
+                }
+            });
+        }
+
+    </script>
+
+    <footer class="footer">
+        <div>
+            <p>@LaCabraDoradaCompany</p>
+        </div>
+    </footer>
+</body>
+
+</html>

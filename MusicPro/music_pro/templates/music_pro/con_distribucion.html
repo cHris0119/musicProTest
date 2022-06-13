@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar</title>
+    <link rel="stylesheet" href="{% static 'music_pro/main.css' %}">
+    <style type="text/css">
+        BODY {
+            font-family: verdana;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <a href="" class="logo">
+            <img src="{% static 'music_pro/img/musicprologo.png' %}">
+            <h2>MusicPro</h2>
+        </a>
+        <nav>
+            <a href="#" class="nav-link">PERFIL</a>
+        </nav>
+
+    </header>
+
+
+    <div class="content">
+
+
+
+        <h1>Consulta de stock</h1>
+        <div>
+            <div class="encabezado-inicio">
+                <h2></h2>
+            </div>
+            <div class="flex-container"> 
+                <div class="flex-item">
+                    <label for="id_prod">Ingrese el ID del producto:</label><br>
+                    <p></p>
+                    <input type="text" id="id_prod"><br>
+                    <p></p>
+                    <p></p>
+                    <button id="btnSubmit" type="submit" class="form__input"> Buscar </button>
+                <p></p></div>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item">
+                <div id="stock"></div>
+                </div>
+            </div>
+            <div class="encabezado-inicio">
+                <h2></h2>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <!--FIN CONTENIDO-->
+    <script>
+        $('#btnSubmit').click(function () {
+            let id = $('#id_prod').val();
+            $.ajax({
+                type: 'GET',
+                ataType: 'json',
+                url: "http://127.0.0.1:8000/api_BodegaDistribucion/Consultar/" + id + "",
+                error: function (xhr, status, error) {
+                    var err_msg = ''
+                    for (var prop in xhr.responseJSON) {
+                        err_msg += prop + ": " + xhr.responseJSON[prop] + "\n";
+                    }
+
+                    alert(status);
+                    console.log('algo mal')
+                },
+                success: function (result) {
+                    var st = ''
+                    st = "<label> El stock disponible del producto corresponde a: " + result.stock + "<label>"
+                    console.log(st)
+                    $('#stock').html(st)
+                }
+
+            });
+        })
+    </script>
+
+    <footer class="footer">
+        <div>
+            <p>@LaCabraDoradaCompany</p>
+        </div>
+    </footer>
+</body>
+
+</html>

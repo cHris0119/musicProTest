@@ -39,7 +39,7 @@
                 <h2>Productos</h2>
             </div>
 
-            
+
             <div id="divBody" class='flex-container'>
 
             </div>
@@ -68,6 +68,7 @@
 
                     var totalCount = result.length;
                     var structureDiv = "";
+                    var st = "";
                     for (let i = 0; i < totalCount; i++) {
                         stock(result[i].idProd)
                         structureDiv +=
@@ -76,7 +77,7 @@
                             "<div class='flex-item'>" +
                             "<img class='flex-item__img' src='" + result[i].img + "'>" +
                             "<h3>" + result[i].nombre + "</h3>" +
-                            "<div id='Stock'></div>" +
+                            "<div id='" + result[i].idProd + "'></div>" +
                             "<h4>" + result[i].precio + "</h4>" +
                             "<button>Agregar al carrito</button>" +
 
@@ -96,14 +97,15 @@
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: "http://127.0.0.1:8000/api_VentaBodega/Producto/"+id+"", success: function (result) {
+                url: "http://127.0.0.1:8000/api_VentaBodega/Producto/" + id + "", success: function (result) {
 
-                    var structureDiv = "";
-                    structureDiv = 
-                    "<h3> Stock Disponible: "+ result.stock +"</h3>"
-                    $("#Stock").html(structureDiv);
-                }
-            });
+                var structureDiv = "";
+                structureDiv =
+                    "<h3> Stock Disponible: " + result.stock + "</h3>"
+                console.log(result)
+                $("#" + id).html(structureDiv);
+            }
+        });
 
         }
     </script>

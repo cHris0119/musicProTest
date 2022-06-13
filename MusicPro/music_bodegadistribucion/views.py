@@ -45,8 +45,8 @@ def pedir_ver_pedidos (request):
 def eliminarpedido(request,id):
     try:
         a = pedido.objects.get(idPedido = id)
+        
     except pedido.DoesNotExist:
         return Response(status= status.HTTP_404_NOT_FOUND)
-    request.method == 'DELETE'
     a.delete()
     return Response(status= status.HTTP_204_NO_CONTENT)
