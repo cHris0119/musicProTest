@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import consultadistribucion, devueltapagar, pagar, inicio, login, registro, carrito, productos,registrarUser, iniciar_sesion, log_out, ver_eliminar_ped
+from .views import consultadistribucion, devueltapagar, pagar, inicio, login, registro, carrito, productos,registrarUser, iniciar_sesion, log_out, ver_eliminar_ped, inicioadm,consulta_ven
 
 urlpatterns = [
     path('', inicio, name="inicio"),
@@ -15,4 +15,6 @@ urlpatterns = [
     path('log_out', log_out, name="log_out"),
      path('consulta_distribucion', consultadistribucion, name="consulta_distribucion"),
     path('ver_eliminar_ped', ver_eliminar_ped, name="ver_eliminar_ped"),
+    path('inicioadm', inicioadm, name="inicioadm"),
+    path('consulta_ven', consulta_ven, name="consulta_ven")
     ]

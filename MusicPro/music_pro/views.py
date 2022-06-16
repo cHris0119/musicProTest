@@ -141,3 +141,11 @@ def consultadistribucion (request):
 def ver_eliminar_ped (request):
 
     return render(request, 'music_pro/ver_eliminar_pedido.html')
+
+def inicioadm (request):
+
+    return render(request, 'music_pro/inicioadm.html')
+
+def consulta_ven (request):
+
+    return render(request, 'music_pro/consulta_ven.html')
