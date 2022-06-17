@@ -27,7 +27,7 @@
             <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
             <a href="{% url 'productos' %}" class="nav-link">Tienda</a>
             <a href="" class="nav-link">Cerrar sesion</a>
-            <a href="{% url 'carrito' %}" class="nav-link"><img src="{% static 'music_pro/img/carrito.png' %}"></a>
+            <a href="{% url 'carrito' user.username %}" class="nav-link"><img src="{% static 'music_pro/img/carrito.png' %}"></a>
         </nav>
 
     </header>
@@ -39,9 +39,9 @@
                 <h2>Productos</h2>
             </div>
 
-
+            
             <div id="divBody" class='flex-container'>
-
+                
             </div>
 
 
@@ -71,18 +71,21 @@
                     var st = "";
                     for (let i = 0; i < totalCount; i++) {
                         stock(result[i].idProd)
+                        num = result[i].precio
                         structureDiv +=
-
-
+                            "<form action='{% url 'agregarcarrito' %}' method='GET'>"+
                             "<div class='flex-item'>" +
                             "<img class='flex-item__img' src='" + result[i].img + "'>" +
                             "<h3>" + result[i].nombre + "</h3>" +
                             "<div id='" + result[i].idProd + "'></div>" +
                             "<h4>" + result[i].precio + "</h4>" +
-                            "<button>Agregar al carrito</button>" +
-
-                            "</div>"
-
+                            "<input type='hidden' value='"+ result[i].precio +"' type='number' id='precio' name='precio' />"+
+                            "<input type='hidden' value='"+ result[i].idProd +"' type='number' id='id_pro' name='id_pro' />"+
+                            "<input type='hidden' value='{{ user.username }}' type='text' id='usuario' name='usuario' />"+
+                            "<input  value='1' min='1' type='number' id='cantidad' name='cantidad' />"+
+                            "<button type=submit> Agregar al carrito </button>"+
+                            "</div>"+
+                            "</form>"
 
                     }
 

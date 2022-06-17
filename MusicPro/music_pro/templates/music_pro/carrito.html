@@ -25,8 +25,7 @@
             <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
             <a href="{% url 'productos' %}" class="nav-link">Tienda</a>
             <a href="" class="nav-link">Cerrar sesion</a>
-            <a href="{% url 'carrito' %}" class="nav-link"><img src="{% static 'music_pro/img/carrito.png' %}"></a>
-        </nav>
+            </nav>
 
     </header>
     <!--FIN HEADER-->
@@ -46,27 +45,20 @@
                         <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
-
+                {% for i in carr %}
                 <tr>
                     <td><img class="img-table" src="img/guitar1.jpg"></td>
                     <td>Guitarra</td>
-                    <td>$500</td>
-                    <td><input type="number" value="2" class="input-table"></td>
-                    <td>$1000</td>
+                    <td>{{ i.precioUnidad }}</td>
+                    <td>{{ i.cantidad }}</td>
+                    <td>{{ i.subtotal }}</td>
                     <td><button class="eliminar">&#10006;</button></td>
                 </tr>
-                <tr>
-                    <td><img class="img-table" src="img/piano1.jpg"></td>
-                    <td>Piano</td>
-                    <td>$1000</td>
-                    <td><input type="number" value="1" class="input-table"></td>
-                    <td>$1000</td>
-                    <td><button class="eliminar">&#10006;</button></td>
-                </tr>
+                {%endfor%}
                 <tfoot>
                         <td colspan="4" class="text-right">TOTAL:</td>
                         <th scope="col">
-                            <p id="total">$2000</p>
+                            <p id="total">{{total.subtotal__sum}}</p>
                             
                         </th>
                 </tfoot>

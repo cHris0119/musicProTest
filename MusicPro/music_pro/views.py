@@ -1,12 +1,11 @@
 from array import typecodes
-from dataclasses import dataclass
+from cgitb import reset
 import email
-from urllib import response
+from django.db.models import Sum
+from dataclasses import dataclass
 from django.contrib import messages
-from urllib.request import Request
 from django.contrib.auth.models import User
 from django.test import TransactionTestCase
-import requests
 from transbank.common.options import WebpayOptions
 from transbank.common.request_service import RequestService
 from transbank.common.api_constants import ApiConstants
@@ -30,7 +29,7 @@ import urllib, json
 
 
 from django.shortcuts import redirect, render
-from .models import Cliente, TipoUsuario
+from .models import Cliente, Producto, TipoUsuario
 
 from music_pro.models import Carrito, CarritoPro
 #from transbank.common.options import WebpayOptions
@@ -49,8 +48,23 @@ def login(request):
 def registro(request):
     return render(request,'music_pro/registro.html')
 
-def carrito(request):
-    return render(request,'music_pro/carrito.html')
+def carrito(request, usu):
+    cliente = Cliente.objects.get(email = usu)
+    try:
+        a = Carrito.objects.get(cliente = cliente)
+    except Carrito.DoesNotExist:
+        a = None
+    
+    if a == None:
+        return render(request,'music_pro/productos.html')
+    else:
+        tot = CarritoPro.objects.filter(carrito=a).aggregate(Sum('subtotal'))
+        objs = CarritoPro.objects.filter(carrito=a)
+        pro = Producto.objects.all()
+        contexto = {"carr":objs, "prod":pro, "total":tot}
+        return render(request,'music_pro/carrito.html', contexto)
+
+    
 
 def productos(request):
     return render(request,'music_pro/productos.html')
@@ -149,3 +163,28 @@ def inicioadm (request):
 def consulta_ven (request):
 
     return render(request, 'music_pro/consulta_ven.html')
+
+
+
+def agregarcarrito(request):
+    precio = request.GET['precio']
+    cantidad = request.GET['cantidad']
+    usu = request.GET['usuario']
+    id = request.GET['id_pro']
+    ob2 = Producto.objects.get(idProd = id)
+    prec = int(precio)
+    cant = int(cantidad)
+    subtotal = prec*cant
+    cli = Cliente.objects.get(email = usu)
+    try:
+        a = Carrito.objects.get(cliente = cli)
+    except Carrito.DoesNotExist:
+        a = None
+    
+    if a == None:
+        nuevocarro = Carrito.objects.create(total= subtotal, fechaCarrito = '2022-06-16', cliente = cli)
+        CarritoPro.objects.create(cantidad=cantidad, precioUnidad = precio, subtotal= subtotal, carrito=nuevocarro, producto=ob2)
+    else:
+        CarritoPro.objects.create(cantidad=cantidad, precioUnidad = precio, subtotal= subtotal, carrito=a, producto=ob2)
+    
+    return redirect('productos')
