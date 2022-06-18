@@ -84,19 +84,29 @@ h1, h2{
     justify-content: space-evenly;
     flex-direction: row;
     flex-wrap: wrap;
-    
+    margin-bottom: 90px;
+}
+
+.flex-container_store{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 82%;
 }
 
 .flex-item{
     background-color: white;
     min-width: 150px;
-    width: 300px;
+    width: 250px;
+    height: 350px;
     margin: 20px;
     text-align: center;
     padding: 10px;
 }
 .flex-item__img{
     max-width: 200px;
+    max-height: 200px;
 }
 
 .footer{
@@ -105,6 +115,8 @@ h1, h2{
     text-align: center;
     margin-top: 6rem;
 }
+
+
 
 /* Desde acá es css login y registro */
     .container-login{
@@ -288,6 +300,42 @@ h1, h2{
     margin: 20px 50px;
     padding-top: 100px;
     padding-bottom: 10px;
+    
+    }
+
+    .store-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .category-list{
+        display: flex; 
+        flex-direction: column;
+        width: 18%;
+    }
+    
+    .category-list .category_item{
+        display: block;
+        width: 90%;
+        padding: 15px 15px;
+        margin: 15px;
+        background-color: #E84C3D;
+        text-align: center;
+        color: #fff;
+    }
+
+    .category-list .marca_item{
+        display: block;
+        width: 90%;
+        padding: 15px 15px;
+        margin: 15px;
+        background-color: #E84C3D;
+        text-align: center;
+        color: #fff;
+    }
+    
+    .category-list .ct_item_active{
+        background: #2D3E50;
     }
 
 

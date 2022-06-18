@@ -27,7 +27,8 @@
             <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
             <a href="{% url 'productos' %}" class="nav-link">Tienda</a>
             <a href="" class="nav-link">Cerrar sesion</a>
-            <a href="{% url 'carrito' user.username %}" class="nav-link"><img src="{% static 'music_pro/img/carrito.png' %}"></a>
+            <a href="{% url 'carrito' user.username %}" class="nav-link"><img
+                    src="{% static 'music_pro/img/carrito.png' %}"></a>
         </nav>
 
     </header>
@@ -39,15 +40,35 @@
                 <h2>Productos</h2>
             </div>
 
-            
-            <div id="divBody" class='flex-container'>
+
+            <div class="store-wrapper">
+
+                <div class="category-list">
+                    <a href="#" class="category_item" category="all">Todo</a>
+                    <a href="#" class="category_item" category="1">Guitarras</a>
+                    <a href="#" class="category_item" category="2">Pianos</a>
+                    <a href="#" class="category_item" category="3">Baterias</a>
+                    <a href="#" class="category_item" category="4">Bajos</a>
+                    <h2>Marcas:</h2>
+
+                    <a href="#" class="marca_item" marca="1">Scorpion</a>
+                    <a href="#" class="marca_item" marca="2">Yamaha</a>
+                    <a href="#" class="marca_item" marca="3">Casio</a>
+                </div>
+
+
+
                 
+
+                <div id="divBody" class='flex-container_store'>
+
+                </div>
+
+
+
             </div>
 
-
-
         </div>
-
     </div>
     <footer class="footer">
         <div>
@@ -58,6 +79,35 @@
     <script>
         $(document).ready(function () {
             BindStudents();
+            $('.category-list .category_item[category="all"]').addClass('ct_item_active');
+
+            $('.category_item').click(function () {
+                var catProdu = $(this).attr('category');
+
+                $('.category_item').removeClass('ct_item_active');
+                $('.marca_item').removeClass('ct_item_active');
+                $(this).addClass('ct_item_active');
+
+                $('.flex-item').hide();
+
+                cate(catProdu);
+            });
+            $('.marca_item').click(function () {
+                var marProdu = $(this).attr('marca');
+
+                $('.category_item').removeClass('ct_item_active');
+                $('.marca_item').removeClass('ct_item_active');
+                $(this).addClass('ct_item_active');
+                $('.flex-item').hide();
+
+                marca(marProdu);
+
+            });
+
+            $('.category_item[category="all"]').click(function () {
+                BindStudents();
+            });
+
         });
 
         function BindStudents() {
@@ -73,19 +123,21 @@
                         stock(result[i].idProd)
                         num = result[i].precio
                         structureDiv +=
-                            "<form action='{% url 'agregarcarrito' %}' method='GET'>"+
-                            "<div class='flex-item'>" +
-                            "<img class='flex-item__img' src='" + result[i].img + "'>" +
-                            "<h3>" + result[i].nombre + "</h3>" +
-                            "<div id='" + result[i].idProd + "'></div>" +
-                            "<h4>" + result[i].precio + "</h4>" +
-                            "<input type='hidden' value='"+ result[i].precio +"' type='number' id='precio' name='precio' />"+
-                            "<input type='hidden' value='"+ result[i].idProd +"' type='number' id='id_pro' name='id_pro' />"+
-                            "<input type='hidden' value='{{ user.username }}' type='text' id='usuario' name='usuario' />"+
-                            "<input  value='1' min='1' type='number' id='cantidad' name='cantidad' />"+
-                            "<button type=submit> Agregar al carrito </button>"+
-                            "</div>"+
-                            "</form>"
+                        "<form action='{% url 'agregarcarrito' %}' method='GET'>" +
+                       
+                       "<div class='flex-item' category='" + result[i].categoria + "'>" +
+                       "<img class='flex-item__img' src='" + result[i].img + "'>" +
+                       "<h3>" + result[i].nombre + "</h3>" +
+                       "<div id='" + result[i].idProd + "'></div>" +
+                       "<h4>" + result[i].precio + "</h4>" +
+                       "<input type='hidden' value='" + result[i].precio + "' type='number' id='precio' name='precio' />" +
+                       "<input type='hidden' value='" + result[i].idProd + "' type='number' id='id_pro' name='id_pro' />" +
+                       "<input type='hidden' value='{{ user.username }}' type='text' id='usuario' name='usuario' />" +
+                       "<input  value='1' min='1' type='number' id='cantidad' name='cantidad' />" +
+                       "<button type=submit> Agregar al carrito </button>" +
+                       "</div>" +
+                       "</form>"
+
 
                     }
 
@@ -102,14 +154,89 @@
                 dataType: 'json',
                 url: "http://127.0.0.1:8000/api_VentaBodega/Producto/" + id + "", success: function (result) {
 
-                var structureDiv = "";
-                structureDiv =
-                    "<h3> Stock Disponible: " + result.stock + "</h3>"
-                console.log(result)
-                $("#" + id).html(structureDiv);
-            }
-        });
+                    var structureDiv = "";
+                    structureDiv =
+                        "<h3> Stock Disponible: " + result.stock + "</h3>"
+                    console.log(result)
+                    $("#" + id).html(structureDiv);
+                }
+            });
 
+        }
+
+        function cate(id) {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "http://127.0.0.1:8000/api_VentaBodega/Categoria/" + id + "", success: function (result) {
+
+                    var totalCount = result.length;
+                    var structureDiv = "";
+                    for (let i = 0; i < totalCount; i++) {
+                        stock(result[i].idProd)
+                        structureDiv +=
+
+                            "<form action='{% url 'agregarcarrito' %}' method='GET'>" +
+                       
+                            "<div class='flex-item' category='" + result[i].categoria + "'>" +
+                            "<img class='flex-item__img' src='" + result[i].img + "'>" +
+                            "<h3>" + result[i].nombre + "</h3>" +
+                            "<div id='" + result[i].idProd + "'></div>" +
+                            "<h4>" + result[i].precio + "</h4>" +
+                            "<input type='hidden' value='" + result[i].precio + "' type='number' id='precio' name='precio' />" +
+                            "<input type='hidden' value='" + result[i].idProd + "' type='number' id='id_pro' name='id_pro' />" +
+                            "<input type='hidden' value='{{ user.username }}' type='text' id='usuario' name='usuario' />" +
+                            "<input  value='1' min='1' type='number' id='cantidad' name='cantidad' />" +
+                            "<button type=submit> Agregar al carrito </button>" +
+                            "</div>" +
+                            "</form>"
+
+
+
+
+                    }
+
+                    $("#divBody").html(structureDiv);
+                }
+            });
+        }
+
+        function marca(id) {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: "http://127.0.0.1:8000/api_VentaBodega/Marca/" + id + "", success: function (result) {
+
+                    var totalCount = result.length;
+                    var structureDiv = "";
+                    for (let i = 0; i < totalCount; i++) {
+                        stock(result[i].idProd)
+                        structureDiv +=
+
+                            "<form action='{% url 'agregarcarrito' %}' method='GET'>" +
+                           
+                            "<div class='flex-item' marca='" + result[i].marca + "'>" +
+        
+                            "<img class='flex-item__img' src='" + result[i].img + "'>" +
+                            "<h3>" + result[i].nombre + "</h3>" +
+                            "<div id='" + result[i].idProd + "'></div>" +
+                            "<h4>" + result[i].precio + "</h4>" +
+                            "<input type='hidden' value='" + result[i].precio + "' type='number' id='precio' name='precio' />" +
+                            "<input type='hidden' value='" + result[i].idProd + "' type='number' id='id_pro' name='id_pro' />" +
+                            "<input type='hidden' value='{{ user.username }}' type='text' id='usuario' name='usuario' />" +
+                            "<input  value='1' min='1' type='number' id='cantidad' name='cantidad' />" +
+                            "<button type=submit> Agregar al carrito </button>" +
+                            "</div>" +
+                            "</form>"
+
+
+
+
+                    }
+
+                    $("#divBody").html(structureDiv);
+                }
+            });
         }
     </script>
 </body>
