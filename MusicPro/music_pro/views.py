@@ -187,3 +187,41 @@ def agregarcarrito(request):
             obj.subtotal = subt
             obj.save()
     return redirect('productos')
+
+
+def Agregarusuario (request):
+    Tius = TipoUsuario.objects.all()
+    contexto = {"tipous": Tius}
+    return render(request, 'music_pro/agregaruser.html', contexto)
+
+def agregarus(request):
+    tipous = request.POST['TipoDeUsuario']
+    rut = request.POST['rut']
+    nombre = request.POST['nombre']
+    apellido = request.POST['apellido']
+    img = request.FILES['img_user']
+    email = request.POST['email']
+    contra = request.POST['contra']
+    contra2 = request.POST['contra2']
+    tipoUsu = TipoUsuario.objects.get(idTipoUs = tipous)
+    clientes = Cliente.objects.all()
+    for i in clientes:
+        cli1 = i.email
+        if email == cli1:
+            messages.error(request,'El correo ya existe')
+            return redirect('agregarusuario')
+    if contra != contra2:
+        
+        messages.error(request,'Las contraseñas deben ser iguales')
+        return redirect('agregarusuario')
+    else:
+        Cliente.objects.create(rutCli = rut, nombre = nombre, img = img, apellido = apellido, email = email, contra = contra, tipousuario = tipoUsu)
+        if tipoUsu.idTipoUs == 1:
+            User.objects.create_user(username =  email, password = contra)
+        elif tipoUsu.idTipoUs == 2:
+            User.objects.create_user(username =  email, password = contra, is_staff=1, is_superuser=1)
+        elif tipoUsu.idTipoUs == 3:
+            User.objects.create_user(username =  email, password = contra, is_staff=1, is_superuser=0)
+        else:
+            User.objects.create_user(username =  email, password = contra, is_staff=0, is_superuser=1)
+        return redirect('inicioadm')

@@ -33,12 +33,12 @@
            {% endif %}
            {% else %}
            {% if user.is_staff == 1 %}
-           <a href="" class="nav-link"> Perfil </a><!-- Admin-->
+           <a href="{% url 'inicioadm' %}" class="nav-link"> Perfil </a><!-- Admin-->
            {% else%}
            <a href="" class="nav-link"> Perfil </a> <!-- Vendedor-->
            {% endif %}
            {% endif %}
-            <a href="" class="nav-link">Cerrar sesion</a>
+            <a href="{% url 'log_out' %}" class="nav-link">Cerrar sesion</a>
             <a href="{% url 'carrito' user.username %}" class="nav-link"><img
                     src="{% static 'music_pro/img/carrito.png' %}"></a>
         </nav>

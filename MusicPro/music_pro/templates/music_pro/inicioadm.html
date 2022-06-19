@@ -26,8 +26,8 @@
         <nav>
             <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
             <a href="{% url 'productos' %}" class="nav-link">Tienda</a>
-            <a href="" class="nav-link">Cerrar sesion</a>
-            <a href="{% url 'carrito' %}" class="nav-link"><img src="{% static 'music_pro/img/carrito.png' %}"></a>
+            <a href="{% url 'agregarusuario' %}" class="nav-link">Agregar Usuario</a>
+            <a href="{% url 'log_out' %}" class="nav-link">Cerrar sesion</a>
         </nav>
 
     </header>
@@ -57,10 +57,10 @@
 
     <script>
         $(document).ready(function () {
-            BindStudents();
+            producto();
         });
 
-        function BindStudents() {
+        function producto() {
             $.ajax({
                 type: 'GET',
                 dataType: 'json',

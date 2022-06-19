@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inicioadm</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style type="text/css">
+        BODY {
+            font-family: verdana;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'music_pro/css/main.css' %}">
+</head>
+
+<body>
+    <header>
+        <a href="{% url 'inicio' %}" class="logo">
+            <img src="{% static 'music_pro/img/musicprologo.png' %}">
+            <h2>MusicPro</h2>
+        </a>
+        <nav>
+            <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
+            <a href="{% url 'productos' %}" class="nav-link">Tienda</a>
+            <a href="{% url 'inicioadm' %}" class="nav-link"> Perfil </a><!-- Admin-->
+            <a href="{% url 'log_out' %}" class="nav-link">Cerrar sesion</a>
+        </nav>
+
+    </header>
+
+    <div class="content">
+
+        <h1>Agregar Usuario</h1>
+
+        <div class="encabezado-inicio">
+            <h2></h2>
+        </div>
+        <div class="login-box1">
+            {% if messages %}
+            <div style="text-align: center;" class="alert alert-warning alert-dismissible fade show">
+                {% for x in messages %}
+                <h3>{{ x }}</h3><br>
+                {% endfor %}
+            </div>
+            {% endif %}
+        <form class="form" action="{% url 'agregarus' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form__section">
+                <label name="TipoDeUsuario"> Tipo de Usuario  </label>
+                <select name="TipoDeUsuario">
+                    <optgroup label="Tipo de Usuario">
+                        {% for i in tipous %}
+                        <option value="{{i.idTipoUs}}" > {{i.idTipoUs}} {{ i.nomTipoUs}}</option>
+                        {% endfor %}
+                    </optgroup>
+
+                </select>
+            </div>
+            <div class="form__section">
+                <input class="form__input" type="number" id="rut" name="rut" placeholder="Ingrese su rut"
+                    min="100000000" max="999999999">
+            </div>
+            <div class="form__section">
+                <input class="form__input" id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre">
+            </div>
+            <div class="form__section">
+                <input class="form__input" id="apellido" name="apellido" type="text" placeholder="Ingrese su apellido">
+            </div>
+            <div class="form__section">
+                <input type="file" id="img_user" name="img_user" required placeholder="Ingrese su foto de perfil">
+            </div>
+            <div class="form__section">
+                <input class="form__input" id="email" name="email" type="email" placeholder="Ingrese su nombre email">
+            </div>
+            <div class="form__section">
+                <input class="form__input" id="contra" name="contra" type="password"
+                    placeholder="Ingrese su contraseña">
+            </div>
+            <div class="form__section">
+                <input class="form__input" id="contra2" name="contra2" type="password"
+                    placeholder="Ingrese su contraseña nuevamente">
+            </div>
+            <div class="form__section">
+                <input type="submit" class="form__input" value="Registrar">
+            </div>
+           
+        </form>
+    </div>
+        <div class="encabezado-inicio">
+            <h2></h2>
+        </div>
+    </div>
+
+</body>
+
+</html>

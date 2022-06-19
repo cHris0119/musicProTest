@@ -28,7 +28,7 @@
            {% endif %}
            {% else %}
            {% if user.is_staff == 1 %}
-           <a href="" class="nav-link"> Perfil </a><!-- Admin-->
+           <a href="{% url 'inicioadm' %}" class="nav-link"> Perfil </a><!-- Admin-->
            {% else%}
            <a href="" class="nav-link"> Perfil </a> <!-- Vendedor-->
            {% endif %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import agregarcarrito, consultadistribucion, devueltapagar, pagar, inicio, login, registro, carrito, productos,registrarUser, iniciar_sesion, log_out, ver_eliminar_ped, inicioadm,consulta_ven
+from .views import Agregarusuario, agregarcarrito, agregarus, consultadistribucion, devueltapagar, pagar, inicio, login, registro, carrito, productos,registrarUser, iniciar_sesion, log_out, ver_eliminar_ped, inicioadm,consulta_ven
 
 from django.contrib.auth.decorators import login_required
 urlpatterns = [
@@ -19,5 +19,7 @@ urlpatterns = [
     path('inicioadm',  login_required(inicioadm), name="inicioadm"),
     path('consulta_ven',  login_required(consulta_ven), name="consulta_ven"),
 
-    path('agregarcarrito', login_required(agregarcarrito), name="agregarcarrito")
+    path('agregarcarrito', login_required(agregarcarrito), name="agregarcarrito"),
+    path('agregarusuario', login_required(Agregarusuario), name="agregarusuario"),
+    path('agregarus', login_required(agregarus), name="agregarus"),
     ]
