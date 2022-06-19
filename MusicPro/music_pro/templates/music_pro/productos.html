@@ -13,7 +13,7 @@
             font-family: verdana;
         }
     </style>
-    <link rel="stylesheet" href="{% static 'music_pro/main.css' %}">
+    <link rel="stylesheet" href="{% static 'music_pro/css/main.css' %}">
 </head>
 
 <body>
@@ -25,7 +25,19 @@
         </a>
         <nav>
             <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
-            <a href="{% url 'productos' %}" class="nav-link">Tienda</a>
+            {% if user.is_superuser == 0 %}
+           {% if user.is_staff == 0 %}
+           <a href="" class="nav-link"> Perfil </a> <!-- Cliente -->
+           {% else %}
+           <a href="" class="nav-link"> Perfil </a> <!-- Bodega -->
+           {% endif %}
+           {% else %}
+           {% if user.is_staff == 1 %}
+           <a href="" class="nav-link"> Perfil </a><!-- Admin-->
+           {% else%}
+           <a href="" class="nav-link"> Perfil </a> <!-- Vendedor-->
+           {% endif %}
+           {% endif %}
             <a href="" class="nav-link">Cerrar sesion</a>
             <a href="{% url 'carrito' user.username %}" class="nav-link"><img
                     src="{% static 'music_pro/img/carrito.png' %}"></a>
@@ -45,15 +57,14 @@
 
                 <div class="category-list">
                     <a href="#" class="category_item" category="all">Todo</a>
-                    <a href="#" class="category_item" category="1">Guitarras</a>
-                    <a href="#" class="category_item" category="2">Pianos</a>
-                    <a href="#" class="category_item" category="3">Baterias</a>
-                    <a href="#" class="category_item" category="4">Bajos</a>
+                    {% for i in categoria %}
+                    <a href="#" class="category_item" category="{{ i.idCategoria }}">{{ i.nombreCategoria}}</a>
+                    {% endfor %}
+                    
                     <h2>Marcas:</h2>
-
-                    <a href="#" class="marca_item" marca="1">Scorpion</a>
-                    <a href="#" class="marca_item" marca="2">Yamaha</a>
-                    <a href="#" class="marca_item" marca="3">Casio</a>
+                    {% for e in marca %}
+                    <a href="#" class="marca_item" marca="{{ e.idMarca }}">{{ e.nombreMarca }}</a>
+                    {% endfor %}
                 </div>
 
 
@@ -78,7 +89,7 @@
 
     <script>
         $(document).ready(function () {
-            BindStudents();
+            productos();
             $('.category-list .category_item[category="all"]').addClass('ct_item_active');
 
             $('.category_item').click(function () {
@@ -105,12 +116,12 @@
             });
 
             $('.category_item[category="all"]').click(function () {
-                BindStudents();
+                productos();
             });
 
         });
 
-        function BindStudents() {
+        function productos() {
             $.ajax({
                 type: 'GET',
                 dataType: 'json',

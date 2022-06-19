@@ -1,41 +1,16 @@
-from array import typecodes
-from cgitb import reset
-import email
 from django.db.models import Sum
-from dataclasses import dataclass
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.test import TransactionTestCase
 from transbank.common.options import WebpayOptions
-from transbank.common.request_service import RequestService
-from transbank.common.api_constants import ApiConstants
 from transbank.common.integration_commerce_codes import IntegrationCommerceCodes
 from transbank.common.integration_api_keys import IntegrationApiKeys
 from transbank.common.integration_type import IntegrationType
-from transbank.common.validation_util import ValidationUtil
-from transbank.common.webpay_transaction import WebpayTransaction
-from transbank.webpay.webpay_plus.schema import TransactionCreateRequestSchema, TransactionRefundRequestSchema, TransactionCaptureRequestSchema
-from transbank.webpay.webpay_plus.request import TransactionCreateRequest, TransactionRefundRequest, TransactionCaptureRequest
 from transbank.webpay.webpay_plus.transaction import Transaction
-from transbank.error.transbank_error import TransbankError
-from transbank.error.transaction_create_error import TransactionCreateError
-from transbank.error.transaction_commit_error import TransactionCommitError
-from transbank.error.transaction_status_error import TransactionStatusError
-from transbank.error.transaction_refund_error import TransactionRefundError
-from transbank.error.transaction_capture_error import TransactionCaptureError
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_process
-import urllib, json
-
-
 from django.shortcuts import redirect, render
-from .models import Cliente, Producto, TipoUsuario
-
+from .models import Bodega, Categoria, Cliente, Marca, Producto, TipoUsuario
 from music_pro.models import Carrito, CarritoPro
-#from transbank.common.options import WebpayOptions
-#from transbank.common.integration_commerce_codes import IntegrationCommerceCodes
-#from transbank.common.integration_api_keys import IntegrationApiKeys
-#from transbank.common.integration_type import IntegrationType
 # Create your views here.
 
 
@@ -56,7 +31,10 @@ def carrito(request, usu):
         a = None
     
     if a == None:
-        return render(request,'music_pro/productos.html')
+        cat = Categoria.objects.all()
+        mar = Marca.objects.all()
+        contexto = {"marca": mar, "categoria":cat}
+        return render(request,'music_pro/productos.html', contexto)
     else:
         tot = CarritoPro.objects.filter(carrito=a).aggregate(Sum('subtotal'))
         objs = CarritoPro.objects.filter(carrito=a)
@@ -67,7 +45,10 @@ def carrito(request, usu):
     
 
 def productos(request):
-    return render(request,'music_pro/productos.html')
+    cat = Categoria.objects.all()
+    mar = Marca.objects.all()
+    contexto = {"marca": mar, "categoria":cat}
+    return render(request,'music_pro/productos.html', contexto)
 
 def registrarUser(request):
     rut = request.POST['rut']
@@ -172,6 +153,7 @@ def agregarcarrito(request):
     usu = request.GET['usuario']
     id = request.GET['id_pro']
     ob2 = Producto.objects.get(idProd = id)
+    bod = Bodega.objects.get(tienda = 2, producto = ob2)
     prec = int(precio)
     cant = int(cantidad)
     subtotal = prec*cant
@@ -184,7 +166,24 @@ def agregarcarrito(request):
     if a == None:
         nuevocarro = Carrito.objects.create(total= subtotal, fechaCarrito = '2022-06-16', cliente = cli)
         CarritoPro.objects.create(cantidad=cantidad, precioUnidad = precio, subtotal= subtotal, carrito=nuevocarro, producto=ob2)
+        bod.stock = bod.stock - cant
+        bod.save()
     else:
-        CarritoPro.objects.create(cantidad=cantidad, precioUnidad = precio, subtotal= subtotal, carrito=a, producto=ob2)
-    
+        try:
+            obj = CarritoPro.objects.get(producto = ob2)
+        except CarritoPro.DoesNotExist:
+            obj=None
+        if obj == None:
+            CarritoPro.objects.create(cantidad=cantidad, precioUnidad = precio, subtotal= subtotal, carrito=a, producto=ob2)
+            bod.stock = bod.stock - cant
+            bod.save()
+        else:
+            bod.stock = bod.stock - cant
+            bod.save()
+            objcan = obj.cantidad
+            can2 = cant+objcan
+            subt =  prec*can2
+            obj.cantidad = can2
+            obj.subtotal = subt
+            obj.save()
     return redirect('productos')

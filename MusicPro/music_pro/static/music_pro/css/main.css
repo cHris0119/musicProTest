@@ -336,8 +336,13 @@ h1, h2{
     
     .category-list .ct_item_active{
         background: #2D3E50;
+        
     }
 
+    #id{
+        border: #000;
+        border-radius: 0px;
+    }
 
 
 

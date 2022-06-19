@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +12,7 @@
             font-family: verdana;
         }
     </style>
-    <link rel="stylesheet" href="{% static 'music_pro/main.css' %}">
+    <link rel="stylesheet" href="{% static 'music_pro/css/main.css' %}">
 </head>
 
 <body>
@@ -24,8 +25,22 @@
         <nav>
             <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
             <a href="{% url 'productos' %}" class="nav-link">Tienda</a>
+            {% if user.is_superuser == 0 %}
+            {% if user.is_staff == 0 %}
+            <a href="" class="nav-link"> Perfil </a> <!-- Cliente -->
+            {% else %}
+            <a href="" class="nav-link"> Perfil </a> <!-- Bodega -->
+            {% endif %}
+            {% else %}
+            {% if user.is_staff == 1 %}
+            <a href="" class="nav-link"> Perfil </a><!-- Admin-->
+            {% else%}
+            <a href="" class="nav-link"> Perfil </a> <!-- Vendedor-->
+            {% endif %}
+            {% endif %}
+
             <a href="" class="nav-link">Cerrar sesion</a>
-            </nav>
+        </nav>
 
     </header>
     <!--FIN HEADER-->
@@ -48,37 +63,38 @@
                 {% for i in carr %}
                 <tr>
                     <td><img class="img-table" src="img/guitar1.jpg"></td>
-                    <td>Guitarra</td>
+                    <td>{{i.producto.nombre}}</td>
                     <td>{{ i.precioUnidad }}</td>
                     <td>{{ i.cantidad }}</td>
                     <td>{{ i.subtotal }}</td>
-                    <td><button class="eliminar">&#10006;</button></td>
+                    <td>
+                    <button class="eliminar">&#10006;</button></td>
                 </tr>
                 {%endfor%}
                 <tfoot>
-                        <td colspan="4" class="text-right">TOTAL:</td>
-                        <th scope="col">
-                            <p id="total">{{total.subtotal__sum}}</p>
-                            
-                        </th>
+                    <td colspan="4" class="text-right">TOTAL:</td>
+                    <th scope="col">
+                        <p id="total">{{total.subtotal__sum}}</p>
+
+                    </th>
                 </tfoot>
             </table>
             <div>
                 <form>
                     <input style="display:none ;">
                     <div class="comprar">
-                      <input type="submit" value="Comprar">
+                        <input type="submit" value="Comprar">
                     </div>
-                    
-                    
+
+
                 </form>
             </div>
         </div>
-        
+
 
     </div>
 
-    
+
 </body>
 
 </html>

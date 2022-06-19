@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
-    <link rel="stylesheet" href="{% static 'music_pro/main.css' %}">
+    <link rel="stylesheet" href="{% static 'music_pro/css/main.css' %}">
     <style type="text/css"> BODY{ font-family: verdana; } </style>
 </head>
 <body>
@@ -16,11 +16,24 @@
         <a href="" class="logo">
             <img src="{% static 'music_pro/img/musicprologo.png' %}">
             <h2>MusicPro</h2>
+            
         </a>
         <nav>
-           <a href="#" class="nav-link">Inicio</a>
            <a href="{% url 'productos' %}" class="nav-link">Tienda</a> 
-           <a href="{% url 'log_out' %}" class="nav-link">Cerrar sesion</a> 
+           {% if user.is_superuser == 0 %}
+           {% if user.is_staff == 0 %}
+           <a href="" class="nav-link"> Perfil </a> <!-- Cliente -->
+           {% else %}
+           <a href="" class="nav-link"> Perfil </a> <!-- Bodega -->
+           {% endif %}
+           {% else %}
+           {% if user.is_staff == 1 %}
+           <a href="" class="nav-link"> Perfil </a><!-- Admin-->
+           {% else%}
+           <a href="" class="nav-link"> Perfil </a> <!-- Vendedor-->
+           {% endif %}
+           {% endif %}
+           <a href="{% url 'log_out' %}" class="nav-link">Cerrar Sesión</a> 
         </nav>
        
     </header>

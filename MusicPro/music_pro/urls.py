@@ -4,20 +4,20 @@ from .views import agregarcarrito, consultadistribucion, devueltapagar, pagar, i
 
 from django.contrib.auth.decorators import login_required
 urlpatterns = [
-    path('', inicio, name="inicio"),
+    path('home', login_required(inicio), name="inicio"),
     path('pagar', pagar, name="pagar"),
     path('devuelta', devueltapagar, name="devuelta"),
-    path('login', login, name="login"),
+    path('', login, name="login"),
     path('registro', registro, name="registro"),
-    path('carrito/<str:usu>', carrito, name="carrito"),
-    path('productos', productos, name="productos"),
+    path('carrito/<str:usu>',  login_required(carrito), name="carrito"),
+    path('productos',  login_required(productos), name="productos"),
     path('registrarUser', registrarUser, name="registrarUser"),
     path('iniciar_sesion', iniciar_sesion, name="iniciar_sesion"),
     path('log_out', log_out, name="log_out"),
-    path('consulta_distribucion', consultadistribucion, name="consulta_distribucion"),
-    path('ver_eliminar_ped', ver_eliminar_ped, name="ver_eliminar_ped"),
-    path('inicioadm', inicioadm, name="inicioadm"),
-    path('consulta_ven', consulta_ven, name="consulta_ven"),
+    path('consulta_distribucion',  login_required(consultadistribucion), name="consulta_distribucion"),
+    path('ver_eliminar_ped',  login_required(ver_eliminar_ped), name="ver_eliminar_ped"),
+    path('inicioadm',  login_required(inicioadm), name="inicioadm"),
+    path('consulta_ven',  login_required(consulta_ven), name="consulta_ven"),
 
     path('agregarcarrito', login_required(agregarcarrito), name="agregarcarrito")
     ]
