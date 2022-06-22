@@ -1,11 +1,10 @@
 from django.contrib import admin
 from django.urls import path
-from .views import Agregarusuario, agregarcarrito, agregarus, consultadistribucion, devueltapagar, hacerped, pagar, inicio, login, pedido, registro, carrito, productos,registrarUser, iniciar_sesion, log_out, ver_eliminar_ped, inicioadm,consulta_ven
+from .views import Agregarusuario, agregarcarrito, agregarus, consultadistribucion, devueltapagar, eliminarpcarro, hacerped, inicio, login, pedido, registro, carrito, productos,registrarUser, iniciar_sesion, log_out, ver_eliminar_ped, inicioadm,consulta_ven
 
 from django.contrib.auth.decorators import login_required
 urlpatterns = [
     path('home', login_required(inicio), name="inicio"),
-    path('pagar', pagar, name="pagar"),
     path('devuelta', devueltapagar, name="devuelta"),
     path('', login, name="login"),
     path('registro', registro, name="registro"),
@@ -18,10 +17,10 @@ urlpatterns = [
     path('ver_eliminar_ped',  login_required(ver_eliminar_ped), name="ver_eliminar_ped"),
     path('inicioadm',  login_required(inicioadm), name="inicioadm"),
     path('consulta_ven',  login_required(consulta_ven), name="consulta_ven"),
-
     path('agregarcarrito', login_required(agregarcarrito), name="agregarcarrito"),
     path('agregarusuario', login_required(Agregarusuario), name="agregarusuario"),
     path('agregarus', login_required(agregarus), name="agregarus"),
     path('hacerpedido', login_required(hacerped), name="hacerpedido"),
     path('pedido', login_required(pedido), name="pedido"),
+    path('eliminarcarro', login_required(eliminarpcarro), name="eliminarcarro"),
     ]

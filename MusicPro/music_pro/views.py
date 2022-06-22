@@ -1,5 +1,6 @@
 from email import header
 from email.header import Header
+from http import client
 from urllib import response
 from django.db.models import Sum
 from django.contrib import messages
@@ -104,22 +105,6 @@ def iniciar_sesion(request):
 def log_out(request):
     logout(request)
     return redirect('login')
-
-def pagar(request):
-    a = Carrito.objects.get(idCarrito = 1)
-    monto = a.total
-    b = CarritoPro.objects.filter(carrito = a)
-    buy_order="asdkajsdas"
-    session_id = "asdasdasd"
-    amount = 2000
-    return_url = "http://127.0.0.1:8000/devuelta"
-    tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, IntegrationType.TEST))
-    resp = tx.create(buy_order, session_id,  monto, return_url)
-    url = resp['url']
-    token = resp['token']
-
-    contexto = {"ur": url, "tok":token, "carrito": b, "total":a}
-    return render(request,'music_pro/pago.html', contexto)
 
 def devueltapagar (request):
     token = request.GET['token_ws']
@@ -259,3 +244,14 @@ def pedido (request):
     r = requests.post( url, data= payload)
     print(r)
     return redirect('hacerpedido')
+
+def eliminarpcarro(request):
+    id = request.POST['id']
+    user = request.POST['us']
+    cliente = Cliente.objects.get(email = user)
+    carritop = CarritoPro.objects.get(idCarritoPro = id)
+    carrito = Carrito.objects.get(cliente = cliente)
+    carrito.total = carrito.total - carritop.subtotal
+    carrito.save()
+    carritop.delete()
+    return redirect('carrito', user)

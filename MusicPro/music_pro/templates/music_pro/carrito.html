@@ -68,7 +68,12 @@
                     <td>{{ i.cantidad }}</td>
                     <td>{{ i.subtotal }}</td>
                     <td>
-                    <button class="eliminar">&#10006;</button></td>
+                    <form action="{% url 'eliminarcarro' %}" method ="POST">
+                       {% csrf_token %}
+                       <input type="hidden" id="us" name="us" value="{{ user.username }}">
+                       <input type="hidden" id="id" name="id" value="{{ i.idCarritoPro }}">
+                       <button type="submit" class="eliminar">&#10006;</button></td>
+                    </form>
                 </tr>
                 {%endfor%}
                 <tfoot>
