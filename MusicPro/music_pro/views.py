@@ -1,6 +1,10 @@
+from email import header
+from email.header import Header
+from urllib import response
 from django.db.models import Sum
 from django.contrib import messages
 from django.contrib.auth.models import User
+import requests
 from transbank.common.options import WebpayOptions
 from transbank.common.integration_commerce_codes import IntegrationCommerceCodes
 from transbank.common.integration_api_keys import IntegrationApiKeys
@@ -39,7 +43,15 @@ def carrito(request, usu):
         tot = CarritoPro.objects.filter(carrito=a).aggregate(Sum('subtotal'))
         objs = CarritoPro.objects.filter(carrito=a)
         pro = Producto.objects.all()
-        contexto = {"carr":objs, "prod":pro, "total":tot}
+        monto = a.total
+        buy_order="buyorder"
+        session_id = "sessionid"
+        return_url = "http://127.0.0.1:8000/devuelta"
+        tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, IntegrationType.TEST))
+        resp = tx.create(buy_order, session_id,  monto, return_url)
+        url = resp['url']
+        token = resp['token']
+        contexto = {"carr":objs, "prod":pro, "total":tot, "url": url, "token":token}
         return render(request,'music_pro/carrito.html', contexto)
 
     
@@ -175,12 +187,18 @@ def agregarcarrito(request):
             obj=None
         if obj == None:
             CarritoPro.objects.create(cantidad=cantidad, precioUnidad = precio, subtotal= subtotal, carrito=a, producto=ob2)
+            total = a.total + subtotal
+            a.total = total
+            a.save()
             bod.stock = bod.stock - cant
             bod.save()
         else:
             bod.stock = bod.stock - cant
             bod.save()
             objcan = obj.cantidad
+            tot = objcan*prec
+            a.total = tot + a.total
+            a.save()
             can2 = cant+objcan
             subt =  prec*can2
             obj.cantidad = can2
@@ -225,3 +243,19 @@ def agregarus(request):
         else:
             User.objects.create_user(username =  email, password = contra, is_staff=0, is_superuser=1)
         return redirect('inicioadm')
+
+    
+def hacerped (request):
+
+    prod = Producto.objects.all()
+    contexto = {"producto": prod}
+
+    return render(request, 'music_pro/hacerpedido.html', contexto)
+
+def pedido (request):
+    payload = {'nomPedido': 'guitarra' ,'cantidad':10,'idProducto':1,'tienda':2}
+    headers = {'Content-type': 'text/html; charset=utf-8'}
+    url = "http://127.0.0.1:8000/api_BodegaDistribucion/Ver_Pedir"
+    r = requests.post( url, data= payload)
+    print(r)
+    return redirect('hacerpedido')

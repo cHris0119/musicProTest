@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inicioadm</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style type="text/css">
+        BODY {
+            font-family: verdana;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'music_pro/css/main.css' %}">
+</head>
+
+<body>
+    <header>
+        <a href="{% url 'inicio' %}" class="logo">
+            <img src="{% static 'music_pro/img/musicprologo.png' %}">
+            <h2>MusicPro</h2>
+        </a>
+        <nav>
+            <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
+            <a href="{% url 'productos' %}" class="nav-link">Tienda</a>
+            <a href="{% url 'inicioadm' %}" class="nav-link"> Perfil </a><!-- Admin-->
+            <a href="{% url 'log_out' %}" class="nav-link">Cerrar sesion</a>
+        </nav>
+
+    </header>
+
+    <div class="content">
+
+        <h1>Agregar Usuario</h1>
+
+        <div class="encabezado-inicio">
+            <h2></h2>
+        </div>
+        <div class="login-box1">
+            <form method="POST" action="http://127.0.0.1:8000/api_BodegaDistribucion/Ver_Pedir">
+                {% csrf_token %}
+            
+                <div class="form__section">
+                    <input class="form__input" type="text" id="id_prod" name="id_prod" placeholder="Id del Producto"
+                         required>
+                </div>
+
+                <div class="form__section">
+                    <input class="form__input" type="text" id="cantidad" name="cantidad" placeholder="Cantidad del producto"
+                        required>
+                </div>
+
+                <div class="form__section">
+                    <input class="form__input" type="text" id="nombre" name="nombre" placeholder="Nombre del producto"
+                        required>
+                </div>
+
+                
+                    <button  type="submit" class="form__input"> solicitar</button>
+                   </form> 
+                   <a href="{% url 'pedido' %}"> hacer pedido </a>
+                
+
+
+        </div>
+        <div class="encabezado-inicio">
+            <h2></h2>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+        $('#boton').click(function () {
+            let id = $('#id_prod').val();
+            let nombre = $('#nombre').val();
+            let cantidad = $('#cant').val();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: {"nomPedido":"guitarra" ,"cantidad":10,"tienda":2,"idProducto":1},
+                contentType: 'application/json',
+                url: "http://127.0.0.1:8000/api_BodegaDistribucion/Ver_Pedir",
+
+                
+                error: function (xhr, status, error) {
+
+                    var err_msg = ''
+                    for (var prop in xhr.responseJSON) {
+                        err_msg += prop + ': ' + xhr.responseJSON[prop] + '\n';
+                    }
+                    console.log(status)
+                    alert(err_msg);
+                },
+                success: function (result) {
+                    alert('Data Saved Successfully.');
+                }
+            });
+
+
+        });
+
+    </script>
+</body>
+
+</html>

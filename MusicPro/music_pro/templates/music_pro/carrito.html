@@ -80,9 +80,10 @@
                 </tfoot>
             </table>
             <div>
-                <form>
+                <form method="post" action="{{url}}">
                     <input style="display:none ;">
                     <div class="comprar">
+                        <input type="hidden" name="token_ws" value="{{token}}" />
                         <input type="submit" value="Comprar">
                     </div>
 
