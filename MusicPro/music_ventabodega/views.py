@@ -37,9 +37,17 @@ def traerUnProducto(request,id):
 
 @api_view(['GET'])
 def traerUnaCategoria(request,idc):
-    a = Producto.objects.filter(categoria = idc)
-    
-    serializer = ProductoSerializador(a, many = True) 
+    try:
+        a = Categoria.objects.get(idCategoria = idc)
+    except Categoria.DoesNotExist:
+        a  = None
+    if a == None:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    else:
+        b = Producto.objects.filter(categoria = idc)
+
+        
+        serializer = ProductoSerializador(b, many = True)
     return Response(serializer.data)
 
 @api_view(['GET'])

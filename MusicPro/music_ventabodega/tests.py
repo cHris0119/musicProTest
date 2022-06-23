@@ -79,6 +79,12 @@ class testVentaBodega(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
+    def test_ObtenerProductoCateMalo(self):
+        url = "/api_VentaBodega/Categoria/100"
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 404)
+
 
     def test_ObtenerProductoid(self):
         url = "/api_VentaBodega/Producto/1"
