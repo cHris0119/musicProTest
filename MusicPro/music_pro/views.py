@@ -45,7 +45,7 @@ def carrito(request, usu):
         objs = CarritoPro.objects.filter(carrito=a)
         pro = Producto.objects.all()
         monto = a.total
-        buy_order="buyorder"
+        buy_order= str(a.idCarrito)
         session_id = "sessionid"
         return_url = "http://127.0.0.1:8000/devuelta"
         tx = Transaction(WebpayOptions(IntegrationCommerceCodes.WEBPAY_PLUS, IntegrationApiKeys.WEBPAY, IntegrationType.TEST))
@@ -121,8 +121,11 @@ def devueltapagar (request):
     typocode = response['payment_type_code']
     respon = response['response_code']
     number = response['installments_number']
+    if status == 'AUTHORIZED':
+        c = Carrito.objects.get(idCarrito = ord)
+        c.delete() 
     contexto = {"amoun": amount, "stado": status, "orde": orden, "fech": fecha, "type": typocode, "cod": codigo, "count": cuenta}
-    return render(request, 'music_pro/devuelta.html', contexto)
+    return render(request, 'music_pro/boleta.html', contexto)
 
 
     

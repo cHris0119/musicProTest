@@ -90,6 +90,8 @@
             $.ajax({
                 type: 'DELETE',
                 dataType: 'json',
+                
+                contentType: 'application/json',
 
                 url: "http://127.0.0.1:8000/api_BodegaDistribucion/eliminar_pedido/" + id + "",
                 error: function (xhr, status, error) {

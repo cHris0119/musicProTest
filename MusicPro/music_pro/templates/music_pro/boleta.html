@@ -48,52 +48,42 @@
     <div class="container-cart">
         <div class="imgcart"></div>
         <div class="container-cart_main">
-            <h1>Realizar compra</h1>
+            <h1>Detalle de la compra</h1>
             <table class="table-cart">
-                <thead>
                     <tr>
-                        <th scope="col">Imagen</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Subtotal</th>
-                        <th scope="col">Eliminar</th>
+                        <th scope="col">N° Orden</th>
+                        <td> {{orde}} </td>
                     </tr>
-                </thead>
-                {% for i in carr %}
-                <tr>
-                    <td><img class="img-table" src="{{ i.img }}"/></td>
-                    <td>{{i.producto.nombre}}</td>
-                    <td>{{ i.precioUnidad }}</td>
-                    <td>{{ i.cantidad }}</td>
-                    <td>{{ i.subtotal }}</td>
-                    <td>
-                    <form action="{% url 'eliminarcarro' %}" method ="POST">
-                       {% csrf_token %}
-                       <input type="hidden" id="us" name="us" value="{{ user.username }}">
-                       <input type="hidden" id="id" name="id" value="{{ i.idCarritoPro }}">
-                       <button type="submit" class="eliminar">&#10006;</button></td>
-                    </form>
-                </tr>
-                {%endfor%}
-                <tfoot>
-                    <td colspan="4" class="text-right">TOTAL:</td>
-                    <th scope="col">
-                        <p id="total">{{total.subtotal__sum}}</p>
-
-                    </th>
-                </tfoot>
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <td> {{fech}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <td> {{cod}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Cuenta</th>
+                        <td> {{count}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Monto</th>
+                        <td> {{amoun}} </td>
+                    </tr>
+                    <tr>
+                        <th scope="col">estado</th>
+                        <td> {{stado}} </td>
+                    </tr>
+              
             </table>
             <div>
-                <form method="post" action="{{url}}">
+                
                     <input style="display:none ;">
                     <div class="comprar">
-                        <input type="hidden" name="token_ws" value="{{token}}" />
-                        <input type="submit" value="Comprar">
+                        <a href="{% url 'inicio' %}"><input value="Volver al inicio"></a>
                     </div>
 
 
-                </form>
             </div>
         </div>
 
