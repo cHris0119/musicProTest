@@ -141,7 +141,9 @@ def inicioadm (request):
 def consulta_ven (request):
 
     return render(request, 'music_pro/consulta_ven.html')
+def vbodega (request):
 
+    return render(request, 'music_pro/vbodega.html')
 
 
 def agregarcarrito(request):

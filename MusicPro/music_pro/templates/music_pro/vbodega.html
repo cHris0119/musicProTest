@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bodeguero</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style type="text/css">
+        BODY {
+            font-family: verdana;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'music_pro/css/main.css' %}">
+</head>
+
+<body>
+    <!--HEADER-->
+    <header>
+        <a href="{% url 'inicio' %}" class="logo">
+            <img src="{% static 'music_pro/img/musicprologo.png' %}">
+            <h2>MusicPro</h2>
+        </a>
+        <nav>
+            <a href="{% url 'inicio' %}" class="nav-link">Inicio</a>
+            <a href="{% url 'agregarusuario' %}" class="nav-link">Consultar Stock</a>
+            <a href="{% url 'log_out' %}" class="nav-link">Cerrar sesion</a>
+        </nav>
+
+    </header>
+    <!--FIN HEADER-->
+
+    <div class="container-prod">
+        <div>
+            <div class="encabezado-inicio">
+                <h2>Bienvenido bodeguero</h2>
+            </div>
+
+
+            <div id="divBody" class='flex-container'>
+
+            </div>
+
+
+
+        </div>
+
+    </div>

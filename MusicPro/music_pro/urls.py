@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import Agregarusuario, agregarcarrito, agregarus, consultadistribucion, devueltapagar, eliminarpcarro, hacerped, inicio, login, pedido, registro, carrito, productos,registrarUser, iniciar_sesion, log_out, ver_eliminar_ped, inicioadm,consulta_ven
+from .views import Agregarusuario, agregarcarrito, agregarus, consultadistribucion, devueltapagar, eliminarpcarro, hacerped, inicio, login, pedido, registro, carrito, productos,registrarUser, iniciar_sesion, log_out, ver_eliminar_ped, inicioadm,consulta_ven,vbodega
 
 from django.contrib.auth.decorators import login_required
 urlpatterns = [
@@ -23,4 +23,5 @@ urlpatterns = [
     path('hacerpedido', login_required(hacerped), name="hacerpedido"),
     path('pedido', login_required(pedido), name="pedido"),
     path('eliminarcarro', login_required(eliminarpcarro), name="eliminarcarro"),
+    path('vbodega', login_required(vbodega), name="vbodega"),
     ]
