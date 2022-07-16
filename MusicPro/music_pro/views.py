@@ -121,6 +121,7 @@ def devueltapagar (request):
     typocode = response['payment_type_code']
     respon = response['response_code']
     number = response['installments_number']
+    ord = int(orden)
     if status == 'AUTHORIZED':
         c = Carrito.objects.get(idCarrito = ord)
         c.delete() 

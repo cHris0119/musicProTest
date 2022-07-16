@@ -25,7 +25,8 @@
             <h2>MusicPro</h2>
         </a>
         <nav>
-            <a href="#" class="nav-link">PERFIL</a>
+            <a href="#" class="nav-link">Perfil</a>
+            <a href="{% url 'log_out' %}" class="nav-link">Cerrar Sesión</a> 
         </nav>
 
     </header>
@@ -40,7 +41,7 @@
             <div class="encabezado-inicio">
                 <h2></h2>
             </div>
-            <div class="flex-container"> 
+            <div class="flex-container">
                 <div class="flex-item">
                     <label for="id_prod">Ingrese el ID del producto:</label><br>
                     <p></p>
@@ -48,12 +49,10 @@
                     <p></p>
                     <p></p>
                     <button id="btnSubmit" type="submit" class="form__input"> Buscar </button>
-                <p></p></div>
-            </div>
-            <div class="flex-container">
-                <div class="flex-item">
-                <div id="stock"></div>
+                    <p></p>
+                    <div id="stock"></div>
                 </div>
+
             </div>
             <div class="encabezado-inicio">
                 <h2></h2>

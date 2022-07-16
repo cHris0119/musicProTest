@@ -24,7 +24,7 @@
            {% if user.is_staff == 0 %}
            <a href="" class="nav-link"> Perfil </a> <!-- Cliente -->
            {% else %}
-           <a href="" class="nav-link"> Perfil </a> <!-- Bodega -->
+           <a href="{% url 'vbodega' %}" class="nav-link"> Perfil </a> <!-- Bodega -->
            {% endif %}
            {% else %}
            {% if user.is_staff == 1 %}
